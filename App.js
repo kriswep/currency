@@ -17,14 +17,16 @@ export default function App() {
   useEffect(() => calculateFromBase(baseAmount), [data]);
 
   const calculateFromBase = (number) => {
-    if (!isNaN(number) && data) {
+    if (!isNaN(number) && data && data.rates) {
       setBaseAmount(number);
-      setTargetAmount((number * data.rates[target]).toFixed(2));
+      const newTargetAmount = (number * data.rates[target]).toFixed(2);
+      setTargetAmount(isNaN(newTargetAmount) ? 0 : newTargetAmount);
     }
   };
   const calculateFromTarget = (number) => {
-    if (!isNaN(number) && data) {
-      setBaseAmount((number / data.rates[target]).toFixed(2));
+    if (!isNaN(number) && data && data.rates) {
+      const newBaseAmount = (number / data.rates[target]).toFixed(2);
+      setBaseAmount(isNaN(newBaseAmount) ? 0 : newBaseAmount);
       setTargetAmount(number);
     }
   };
@@ -33,34 +35,36 @@ export default function App() {
     <View style={styles.container}>
       {error && <Text>Uh Oh, an error happened...</Text>}
 
-      {data && (
-        <>
-          <View>
-            <TextInput
-              value={base}
-              onChangeText={(text) => setBase(text.toUpperCase())}
-            />
-            <TextInput
-              style={styles.currencyAmount}
-              keyboardType="numeric"
-              value={baseAmount}
-              onChangeText={calculateFromBase}
-            />
-          </View>
-          <View>
-            <TextInput
-              value={target}
-              onChangeText={(text) => setTarget(text.toUpperCase())}
-            />
-            <TextInput
-              style={styles.currencyAmount}
-              keyboardType="numeric"
-              value={targetAmount}
-              onChangeText={calculateFromTarget}
-            />
-          </View>
-        </>
-      )}
+      <>
+        <View style={styles.currencyContainer}>
+          <TextInput
+            autoCapitalize="characters"
+            style={styles.currency}
+            value={base}
+            onChangeText={setBase}
+          />
+          <TextInput
+            style={styles.currencyAmount}
+            keyboardType="numeric"
+            value={baseAmount}
+            onChangeText={calculateFromBase}
+          />
+        </View>
+        <View style={styles.currencyContainer}>
+          <TextInput
+            autoCapitalize="characters"
+            style={styles.currency}
+            value={target}
+            onChangeText={setTarget}
+          />
+          <TextInput
+            style={styles.currencyAmount}
+            keyboardType="numeric"
+            value={targetAmount}
+            onChangeText={calculateFromTarget}
+          />
+        </View>
+      </>
     </View>
   );
 }
@@ -81,11 +85,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  currencyContainer: {
+    flexBasis: 150,
+    margin: 12,
+  },
+  currency: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
   currencyAmount: {
-    fontSize: 32,
+    fontSize: 24,
     padding: 12,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#e2e2e2',
+    borderRadius: 12,
   },
 });
