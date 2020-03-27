@@ -7,9 +7,21 @@ export default function CurrencySelector(props) {
       style={styles.container}
       contentContainerStyle={styles.containerContent}
     >
-      <CurrencyField value="EUR" text="Euro" {...props} />
-      <CurrencyField value="USD" text="US Dollar" {...props} />
+      <CurrencyField value="BGN" text="Bulgarian Lev" {...props} />
       <CurrencyField value="CAD" text="Canadian Dollar" {...props} />
+      <CurrencyField value="CHF" text="Swiss Franc" {...props} />
+      <CurrencyField value="CNY" text="Chinese Yuan Renminbi" {...props} />
+      <CurrencyField value="CZK" text="Czech Koruna" {...props} />
+      <CurrencyField value="DKK" text="Danish Krone" {...props} />
+      <CurrencyField value="EUR" text="Euro" {...props} />
+      <CurrencyField value="GBP" text="British Pound" {...props} />
+      <CurrencyField value="HKD" text="Hong Kong Dollar" {...props} />
+      <CurrencyField value="HUF" text="Hungarian Forint" {...props} />
+      <CurrencyField value="JPY" text="Japanese Yen" {...props} />
+      <CurrencyField value="NOK" text="Norwegian Krone" {...props} />
+      <CurrencyField value="PLN" text="Polish Zloty" {...props} />
+      <CurrencyField value="RUB" text="Russian Ruble" {...props} />
+      <CurrencyField value="USD" text="US Dollar" {...props} />
     </ScrollView>
   );
 }
